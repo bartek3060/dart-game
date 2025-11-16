@@ -185,7 +185,6 @@ export default function GamePlay() {
                         onKeyDown={handleInputKeyDown}
                         placeholder="Enter value 0-180"
                         className="flex-1"
-                        autoFocus
                       />
                     </div>
                     <Keyboard
