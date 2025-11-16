@@ -97,37 +97,39 @@ export default function GamePlay() {
             <div>
               <h2 className="text-sm font-semibold mb-4">Players Scores</h2>
               <Tabs value={activePlayerId}>
-                <TabsList
-                  className="grid w-full gap-2"
-                  style={{
-                    gridTemplateColumns: `repeat(${Math.min(
-                      players.length,
-                      6
-                    )}, 1fr)`,
-                  }}
-                >
-                  {players.map((player) => (
-                    <TabsTrigger
-                      key={player.id}
-                      value={player.id}
-                      className="relative flex flex-col items-center gap-1"
-                    >
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs font-medium">
-                          {player.name}
+                <div className="sticky top-16 z-10 bg-background py-2">
+                  <TabsList
+                    className="grid w-full gap-2"
+                    style={{
+                      gridTemplateColumns: `repeat(${Math.min(
+                        players.length,
+                        6
+                      )}, 1fr)`,
+                    }}
+                  >
+                    {players.map((player) => (
+                      <TabsTrigger
+                        key={player.id}
+                        value={player.id}
+                        className="relative flex flex-col items-center gap-1"
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs font-medium">
+                            {player.name}
+                          </span>
+                          {player.isCurrentPlayer && (
+                            <Badge variant="default" className="h-5 text-xs">
+                              Active
+                            </Badge>
+                          )}
+                        </div>
+                        <span className="text-xs text-muted-foreground font-semibold">
+                          {player.score}
                         </span>
-                        {player.isCurrentPlayer && (
-                          <Badge variant="default" className="h-5 text-xs">
-                            Active
-                          </Badge>
-                        )}
-                      </div>
-                      <span className="text-xs text-muted-foreground font-semibold">
-                        {player.score}
-                      </span>
-                    </TabsTrigger>
-                  ))}
-                </TabsList>
+                      </TabsTrigger>
+                    ))}
+                  </TabsList>
+                </div>
 
                 {players.map((player) => (
                   <TabsContent key={player.id} value={player.id}>
