@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import { Delete, CheckCircle } from "lucide-react";
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+import { Delete, CheckCircle } from 'lucide-react';
 
 interface KeyboardProps {
   onKeyPress?: (digit: string) => void;
@@ -10,9 +10,9 @@ interface KeyboardProps {
 }
 
 const digits = [
-  ["1", "2", "3"],
-  ["4", "5", "6"],
-  ["7", "8", "9"],
+  ['1', '2', '3'],
+  ['4', '5', '6'],
+  ['7', '8', '9'],
 ];
 
 export function Keyboard({
@@ -22,7 +22,7 @@ export function Keyboard({
   className,
 }: KeyboardProps) {
   return (
-    <div className={cn("flex flex-col gap-2", className)}>
+    <div className={cn('flex flex-col gap-2', className)}>
       {digits.map((row, rowIndex) => (
         <div key={rowIndex} className="flex gap-2 justify-center">
           {row.map((digit) => (
@@ -48,7 +48,7 @@ export function Keyboard({
           <Delete className="w-6 h-6" />
         </Button>
         <Button
-          onClick={() => onKeyPress?.("0")}
+          onClick={() => onKeyPress?.('0')}
           variant="outline"
           size="lg"
           className="w-16 h-16 text-lg font-semibold"

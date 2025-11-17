@@ -4,10 +4,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogFooter,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Undo2 } from "lucide-react";
-import type { Player } from "@/contexts/PlayerGameContext/gameTypes";
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Undo2 } from 'lucide-react';
+import type { Player } from '@/contexts/PlayerGameContext/gameTypes';
 
 interface GameFinishedModalProps {
   open: boolean;
@@ -54,14 +54,14 @@ export function GameFinishedModal({
                   key={player.id}
                   className={`p-3 rounded-lg flex justify-between items-center ${
                     player.id === winner?.id
-                      ? "bg-primary/10 border border-primary"
-                      : "bg-muted"
+                      ? 'bg-primary/10 border border-primary'
+                      : 'bg-muted'
                   }`}
                 >
                   <span className="font-medium">{player.name}</span>
                   <span
                     className={`text-lg font-semibold ${
-                      player.id === winner?.id ? "text-primary" : ""
+                      player.id === winner?.id ? 'text-primary' : ''
                     }`}
                   >
                     {player.score}

@@ -1,7 +1,7 @@
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { useNavigation } from "@/hooks/useNavigation";
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { useNavigation } from '@/hooks/useNavigation';
 
 export default function StartPage() {
   const { navigateToConfigureGame, navigateToSignIn, navigateToRegister } =
@@ -160,11 +160,11 @@ export default function StartPage() {
           {/* Footer Links */}
           <div className="mt-8 text-center">
             <p className="text-xs text-muted-foreground">
-              By continuing, you agree to our{" "}
+              By continuing, you agree to our{' '}
               <a href="#" className="font-medium text-primary hover:underline">
                 Terms of Service
-              </a>{" "}
-              and{" "}
+              </a>{' '}
+              and{' '}
               <a href="#" className="font-medium text-primary hover:underline">
                 Privacy Policy
               </a>

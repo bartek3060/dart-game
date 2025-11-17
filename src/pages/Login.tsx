@@ -1,26 +1,26 @@
-import { useState } from "react";
-import { useNavigate } from "react-router";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
   Card,
   CardHeader,
   CardTitle,
   CardDescription,
   CardContent,
-} from "@/components/ui/card";
+} from '@/components/ui/card';
 
 export default function Login() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     if (email && password) {
       // TODO: Implement actual authentication
-      navigate("/game");
+      navigate('/game');
     }
   };
 
@@ -69,10 +69,10 @@ export default function Login() {
 
             <div className="mt-4 text-center text-sm">
               <span className="text-muted-foreground">
-                Don't have an account?{" "}
+                Don't have an account?{' '}
               </span>
               <button
-                onClick={() => navigate("/register")}
+                onClick={() => navigate('/register')}
                 className="text-primary hover:underline font-medium"
               >
                 Create one

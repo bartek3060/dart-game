@@ -13,15 +13,15 @@ export interface GameState {
 }
 
 export type GameAction =
-  | { type: "ADD_PLAYER_INPUT" }
-  | { type: "REMOVE_PLAYER_INPUT"; payload: number }
-  | { type: "SET_PLAYER_NAME"; payload: { playerId: string; name: string } }
-  | { type: "START_GAME" }
+  | { type: 'ADD_PLAYER_INPUT' }
+  | { type: 'REMOVE_PLAYER_INPUT'; payload: number }
+  | { type: 'SET_PLAYER_NAME'; payload: { playerId: string; name: string } }
+  | { type: 'START_GAME' }
   | {
-      type: "ADD_PLAYER_TURN";
+      type: 'ADD_PLAYER_TURN';
       payload: { playerId: string; turn: number };
     }
-  | { type: "END_GAME"; payload: Player }
-  | { type: "RESET_AND_START_GAME" }
-  | { type: "RESET_GAME" }
-  | { type: "DELETE_PLAYER_TURN"; payload: { playerId: string } };
+  | { type: 'END_GAME'; payload: Player }
+  | { type: 'RESET_AND_START_GAME' }
+  | { type: 'RESET_GAME' }
+  | { type: 'DELETE_PLAYER_TURN'; payload: { playerId: string } };

@@ -1,6 +1,6 @@
-import { useEffect, useRef } from "react";
-import { useLocation } from "react-router";
-import { usePlayerGameContext } from "@/contexts/PlayerGameContext/usePlayerGameContext";
+import { useEffect, useRef } from 'react';
+import { useLocation } from 'react-router';
+import { usePlayerGameContext } from '@/contexts/PlayerGameContext/usePlayerGameContext';
 
 export function RouteResetListener() {
   const location = useLocation();
@@ -10,8 +10,8 @@ export function RouteResetListener() {
   useEffect(() => {
     // Reset game when leaving gameplay route
     if (
-      prevPathnameRef.current === "/gameplay" &&
-      location.pathname !== "/gameplay"
+      prevPathnameRef.current === '/gameplay' &&
+      location.pathname !== '/gameplay'
     ) {
       resetGame();
     }

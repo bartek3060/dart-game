@@ -1,22 +1,22 @@
-import { useNavigate } from "react-router";
+import { useNavigate } from 'react-router';
 
 export function useNavigation() {
   const navigate = useNavigate();
 
   const navigateToConfigureGame = () => {
-    navigate("/configure-game");
+    navigate('/configure-game');
   };
 
   const navigateToSignIn = () => {
-    navigate("/login");
+    navigate('/login');
   };
 
   const navigateToRegister = () => {
-    navigate("/register");
+    navigate('/register');
   };
 
   const navigateToGameplay = () => {
-    navigate("/gameplay");
+    navigate('/gameplay');
   };
 
   return {
