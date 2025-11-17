@@ -1,22 +1,22 @@
-import { useState } from "react";
-import { useNavigate } from "react-router";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
   Card,
   CardHeader,
   CardTitle,
   CardDescription,
   CardContent,
-} from "@/components/ui/card";
+} from '@/components/ui/card';
 
 export default function Register() {
   const navigate = useNavigate();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,7 +28,7 @@ export default function Register() {
       password === confirmPassword
     ) {
       // TODO: Implement actual registration
-      navigate("/game");
+      navigate('/game');
     }
   };
 
@@ -103,10 +103,10 @@ export default function Register() {
 
             <div className="mt-4 text-center text-sm">
               <span className="text-muted-foreground">
-                Already have an account?{" "}
+                Already have an account?{' '}
               </span>
               <button
-                onClick={() => navigate("/login")}
+                onClick={() => navigate('/login')}
                 className="text-primary hover:underline font-medium"
               >
                 Sign in

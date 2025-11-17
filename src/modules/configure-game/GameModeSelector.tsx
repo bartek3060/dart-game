@@ -1,6 +1,6 @@
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Users, Bot } from "lucide-react";
-import { GameMode } from "./GameModes.enum";
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Users, Bot } from 'lucide-react';
+import { GameMode } from './GameModes.enum';
 
 interface GameModeSelectorProps {
   gameMode: GameMode;

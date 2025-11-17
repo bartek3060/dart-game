@@ -4,26 +4,26 @@ import {
   CardTitle,
   CardDescription,
   CardContent,
-} from "@/components/ui/card";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Undo2 } from "lucide-react";
-import { usePlayerGameContext } from "@/contexts/PlayerGameContext/usePlayerGameContext";
-import { useNavigation } from "@/hooks/useNavigation";
-import { useEffect, useState } from "react";
-import { Keyboard } from "@/modules/game/Keyboard";
-import { GameFinishedModal } from "@/modules/game/GameFinishedModal";
+} from '@/components/ui/card';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Undo2 } from 'lucide-react';
+import { usePlayerGameContext } from '@/contexts/PlayerGameContext/usePlayerGameContext';
+import { useNavigation } from '@/hooks/useNavigation';
+import { useEffect, useState } from 'react';
+import { Keyboard } from '@/modules/game/Keyboard';
+import { GameFinishedModal } from '@/modules/game/GameFinishedModal';
 
 export default function GamePlay() {
   const { navigateToConfigureGame } = useNavigation();
   const { players, addPlayerTurn, deleteLastPlayerTurn, resetAndStartGame } =
     usePlayerGameContext();
-  const [inputValue, setInputValue] = useState<string>("");
+  const [inputValue, setInputValue] = useState<string>('');
 
   const currentPlayer = players.find(({ isCurrentPlayer }) => isCurrentPlayer);
-  const activePlayerId = currentPlayer?.id || "";
+  const activePlayerId = currentPlayer?.id || '';
   const currentPlayerIndex = players.findIndex(
     ({ isCurrentPlayer }) => isCurrentPlayer
   );
@@ -40,8 +40,12 @@ export default function GamePlay() {
     }
   }, [currentPlayer, navigateToConfigureGame]);
 
+  if (!currentPlayer) {
+    return null;
+  }
+
   const resetPlayerInput = () => {
-    setInputValue("");
+    setInputValue('');
   };
 
   const handleInputChange = ({
@@ -55,14 +59,14 @@ export default function GamePlay() {
   };
 
   const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       e.preventDefault();
       const num = parseInt(inputValue);
       if (!isNaN(num)) {
         addPlayerTurn(activePlayerId, num);
         resetPlayerInput();
       }
-    } else if (e.key === "Backspace" && inputValue === "") {
+    } else if (e.key === 'Backspace' && inputValue === '') {
       e.preventDefault();
       handleBackspace();
     }
@@ -96,22 +100,14 @@ export default function GamePlay() {
           <>
             <div>
               <h2 className="text-sm font-semibold mb-4">Players Scores</h2>
-              <Tabs value={activePlayerId}>
-                <div className="sticky top-16 z-10 bg-background py-2">
-                  <TabsList
-                    className="grid w-full gap-2"
-                    style={{
-                      gridTemplateColumns: `repeat(${Math.min(
-                        players.length,
-                        6
-                      )}, 1fr)`,
-                    }}
-                  >
+              <div className="sticky top-16 z-10 bg-background py-2">
+                <Tabs value={activePlayerId}>
+                  <TabsList className=" flex">
                     {players.map((player) => (
                       <TabsTrigger
                         key={player.id}
                         value={player.id}
-                        className="relative flex flex-col items-center gap-1"
+                        className="relative flex flex-col items-center gap-1 flex-1"
                       >
                         <div className="flex items-center gap-2">
                           <span className="text-xs font-medium">
@@ -129,25 +125,22 @@ export default function GamePlay() {
                       </TabsTrigger>
                     ))}
                   </TabsList>
-                </div>
-
-                {players.map((player) => (
-                  <TabsContent key={player.id} value={player.id}>
-                    <Card className="bg-muted/50 border-0">
-                      <CardContent className="pt-6">
-                        <div className="space-y-4">
-                          <div>
-                            <p className="text-sm text-muted-foreground">
-                              Current Score
-                            </p>
-                            <p className="text-4xl font-bold">{player.score}</p>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </TabsContent>
-                ))}
-              </Tabs>
+                </Tabs>
+              </div>
+              <Card className="bg-muted/50 border-0">
+                <CardContent className="pt-6">
+                  <div className="space-y-4">
+                    <div>
+                      <p className="text-sm text-muted-foreground">
+                        Current Score
+                      </p>
+                      <p className="text-4xl font-bold">
+                        {currentPlayer.score}
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
 
             {currentPlayer && (

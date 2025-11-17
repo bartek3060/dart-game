@@ -4,11 +4,11 @@ import {
   CardTitle,
   CardDescription,
   CardContent,
-} from "@/components/ui/card";
-import { useState } from "react";
-import ConfigureRealPlayersGame from "../modules/configure-game/ConfigureRealPlayersGame";
-import GameModeSelector from "../modules/configure-game/GameModeSelector";
-import { GameMode } from "@/modules/configure-game/GameModes.enum";
+} from '@/components/ui/card';
+import { useState } from 'react';
+import ConfigureRealPlayersGame from '../modules/configure-game/ConfigureRealPlayersGame';
+import GameModeSelector from '../modules/configure-game/GameModeSelector';
+import { GameMode } from '@/modules/configure-game/GameModes.enum';
 
 export default function ConfigureGame() {
   const [gameMode, setGameMode] = useState<GameMode>(GameMode.REAL_PLAYERS);

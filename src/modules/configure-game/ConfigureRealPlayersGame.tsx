@@ -4,17 +4,17 @@ import {
   CardTitle,
   CardDescription,
   CardContent,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Users } from "lucide-react";
-import { usePlayerGameContext } from "@/contexts/PlayerGameContext/usePlayerGameContext";
+} from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Users } from 'lucide-react';
+import { usePlayerGameContext } from '@/contexts/PlayerGameContext/usePlayerGameContext';
 import {
   MAX_PLAYERS,
   MIN_PLAYERS,
-} from "@/contexts/PlayerGameContext/PlayerGameContext";
-import { useNavigation } from "@/hooks/useNavigation";
+} from '@/contexts/PlayerGameContext/PlayerGameContext';
+import { useNavigation } from '@/hooks/useNavigation';
 
 export default function ConfigureRealPlayersGame() {
   const { navigateToGameplay } = useNavigation();
@@ -31,7 +31,7 @@ export default function ConfigureRealPlayersGame() {
     navigateToGameplay();
   };
 
-  const isAnyEmptyName = players.some(({ name }) => name.trim() === "");
+  const isAnyEmptyName = players.some(({ name }) => name.trim() === '');
   return (
     <div className="container mx-auto py-8">
       <div className="max-w-2xl mx-auto">
@@ -114,7 +114,7 @@ export default function ConfigureRealPlayersGame() {
           </CardHeader>
           <CardContent className="space-y-2 text-sm text-muted-foreground">
             <p>
-              • The game starts with each player having{" "}
+              • The game starts with each player having{' '}
               <strong>501 points</strong>
             </p>
             <p>• Players take turns throwing darts and deducting their score</p>

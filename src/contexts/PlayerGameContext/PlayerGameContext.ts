@@ -1,5 +1,5 @@
-import { createContext } from "react";
-import type { Player } from "./gameTypes";
+import { createContext } from 'react';
+import type { Player } from './gameTypes';
 
 export const MIN_PLAYERS = 2;
 export const MAX_PLAYERS = 6;

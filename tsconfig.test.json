@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "verbatimModuleSyntax": false,
+    "types": ["node", "jest"]
+  }
+}
