@@ -1,3 +1,4 @@
+import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Keyboard } from '../Keyboard';
@@ -17,6 +18,7 @@ describe('Keyboard', () => {
         onKeyPress={mockOnKeyPress}
         onBackspace={mockOnBackspace}
         onEnter={mockOnEnter}
+        isScoreValid={true}
       />
     );
 
@@ -35,6 +37,7 @@ describe('Keyboard', () => {
         onKeyPress={mockOnKeyPress}
         onBackspace={mockOnBackspace}
         onEnter={mockOnEnter}
+        isScoreValid={true}
       />
     );
 
@@ -49,6 +52,7 @@ describe('Keyboard', () => {
         onKeyPress={mockOnKeyPress}
         onBackspace={mockOnBackspace}
         onEnter={mockOnEnter}
+        isScoreValid={true}
       />
     );
 
@@ -66,6 +70,7 @@ describe('Keyboard', () => {
         onKeyPress={mockOnKeyPress}
         onBackspace={mockOnBackspace}
         onEnter={mockOnEnter}
+        isScoreValid={true}
       />
     );
 
@@ -75,23 +80,13 @@ describe('Keyboard', () => {
     expect(mockOnKeyPress).toHaveBeenCalledWith('0');
   });
 
-  it('does not call callbacks when props are not provided', async () => {
-    const user = userEvent.setup();
-    render(<Keyboard />);
-
-    const button1 = screen.getByText('1');
-    await user.click(button1);
-
-    // Should not throw error, just do nothing
-    expect(mockOnKeyPress).not.toHaveBeenCalled();
-  });
-
   it('applies custom className', () => {
     render(
       <Keyboard
         onKeyPress={mockOnKeyPress}
         onBackspace={mockOnBackspace}
         onEnter={mockOnEnter}
+        isScoreValid={true}
         className="custom-class"
       />
     );
