@@ -22,6 +22,13 @@ export default function GamePlay() {
     usePlayerGameContext();
   const [inputValue, setInputValue] = useState<string>('');
 
+  const isEnteredScoreValid = !!(
+    inputValue.length &&
+    !isNaN(Number(inputValue)) &&
+    Number(inputValue) >= 0 &&
+    Number(inputValue) <= 180
+  );
+
   const currentPlayer = players.find(({ isCurrentPlayer }) => isCurrentPlayer);
   const activePlayerId = currentPlayer?.id || '';
   const currentPlayerIndex = players.findIndex(
@@ -61,8 +68,8 @@ export default function GamePlay() {
   const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      const num = parseInt(inputValue);
-      if (!isNaN(num)) {
+      if (isEnteredScoreValid) {
+        const num = parseInt(inputValue);
         addPlayerTurn(activePlayerId, num);
         resetPlayerInput();
       }
@@ -105,6 +112,7 @@ export default function GamePlay() {
                   <TabsList className=" flex">
                     {players.map((player) => (
                       <TabsTrigger
+                        data-testid="player-tab-score"
                         key={player.id}
                         value={player.id}
                         className="relative flex flex-col items-center gap-1 flex-1"
@@ -154,6 +162,7 @@ export default function GamePlay() {
                       <CardDescription>Enter your turn score</CardDescription>
                     </div>
                     <Button
+                      data-testid="undo-icon"
                       variant="ghost"
                       size="sm"
                       onClick={() => deleteLastPlayerTurn(previousPlayerId)}
@@ -172,7 +181,7 @@ export default function GamePlay() {
                       <Input
                         type="number"
                         min="1"
-                        max="60"
+                        max="180"
                         value={inputValue}
                         onChange={handleInputChange}
                         onKeyDown={handleInputKeyDown}
@@ -185,6 +194,7 @@ export default function GamePlay() {
                       onBackspace={handleBackspace}
                       onEnter={handleSubmitTurn}
                       className="mt-4"
+                      isScoreValid={isEnteredScoreValid}
                     />
                   </div>
                 </CardContent>

@@ -80,7 +80,7 @@ export function GameFinishedModal({
             title="Delete last turn"
             className="col-start-1"
           >
-            <Undo2 className="h-4 w-4" />
+            <Undo2 data-testid="modal-undo-button" className="h-4 w-4" />
           </Button>
           <Button variant="outline" onClick={onStartAgain}>
             Start Again
