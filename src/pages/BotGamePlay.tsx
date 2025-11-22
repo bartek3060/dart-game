@@ -8,7 +8,7 @@ import {
 import { Loader2 } from 'lucide-react';
 import { useBotGameContext } from '@/contexts/BotGameContext/BotGameContext';
 import { useNavigation } from '@/hooks/useNavigation';
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useRef } from 'react';
 import { GameFinishedModal } from '@/modules/game/GameFinishedModal';
 import { generateBotThrow } from '@/modules/game/generateBotThrows';
 import { useGameInput } from '@/modules/game/hooks/useGameInput';
@@ -48,16 +48,14 @@ export default function BotGamePlay() {
     winner,
     gameFinished,
   } = useGameState(players);
+  const botTurnTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Handle bot turn automatically
   const handleBotTurn = useCallback(() => {
     if (currentPlayer?.isBot && !isLoading) {
       setLoading(true);
+      const thinkingTime = 1500;
 
-      // Simulate bot thinking time (2-3 seconds)
-      const thinkingTime = 2000 + Math.random() * 1000;
-
-      setTimeout(() => {
+      botTurnTimerRef.current = setTimeout(() => {
         if (currentPlayer && currentPlayer.isBot) {
           const botScore = generateBotThrow(currentPlayer.score, botDifficulty);
           addBotTurn(currentPlayer.id, botScore);
@@ -65,6 +63,12 @@ export default function BotGamePlay() {
         }
       }, thinkingTime);
     }
+
+    return () => {
+      if (botTurnTimerRef.current) {
+        clearTimeout(botTurnTimerRef.current);
+      }
+    };
   }, [currentPlayer, botDifficulty, addBotTurn, setLoading, isLoading]);
 
   useEffect(() => {
@@ -72,7 +76,6 @@ export default function BotGamePlay() {
       return navigateToConfigureGame();
     }
 
-    // Auto-trigger bot turn
     handleBotTurn();
   }, [currentPlayer, navigateToConfigureGame, handleBotTurn]);
 
@@ -98,7 +101,6 @@ export default function BotGamePlay() {
   };
 
   const canDeleteTurn = () => {
-    // Can delete the last turn if the previous player has turns and is not a bot
     return (
       !!previousPlayer &&
       !previousPlayer.isBot &&
@@ -135,7 +137,10 @@ export default function BotGamePlay() {
               >
                 <TurnHeader
                   currentPlayer={currentPlayer}
-                  onDeleteTurn={() => deleteLastPlayerTurn(previousPlayer?.id || '')}
+                  onDeleteTurn={() => {
+                    deleteLastPlayerTurn(previousPlayer?.id || '');
+                    botTurnTimerRef.current = null;
+                  }}
                   canDeleteTurn={canDeleteTurn()}
                 />
                 <CardContent className="space-y-6">
