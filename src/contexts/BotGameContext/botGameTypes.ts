@@ -1,4 +1,7 @@
-import type { Player } from '../PlayerGameContext/gameTypes';
+import type {
+  BaseGameAction,
+  BaseGameState,
+} from '../shared/gameTypes';
 
 export const BotDifficulty = {
   EASY: 'easy',
@@ -10,25 +13,15 @@ export const BotDifficulty = {
 export type BotDifficulty = (typeof BotDifficulty)[keyof typeof BotDifficulty];
 
 export type BotGameAction =
-  | { type: 'SET_PLAYER_NAME'; payload: { playerId: string; name: string } }
+  | BaseGameAction
   | { type: 'SET_BOT_DIFFICULTY'; payload: BotDifficulty }
-  | { type: 'START_GAME' }
-  | {
-      type: 'ADD_PLAYER_TURN';
-      payload: { playerId: string; turn: number };
-    }
   | {
       type: 'ADD_BOT_TURN';
       payload: { playerId: string; turn: number };
     }
-  | { type: 'END_GAME'; payload: Player }
-  | { type: 'RESET_AND_START_GAME' }
-  | { type: 'RESET_GAME' }
-  | { type: 'DELETE_PLAYER_TURN'; payload: { playerId: string } }
   | { type: 'SET_LOADING'; payload: boolean };
 
-export interface BotGameState {
+export interface BotGameState extends BaseGameState {
   botDifficulty: BotDifficulty;
   isLoading: boolean;
-  players: Player[];
 }

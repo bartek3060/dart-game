@@ -15,7 +15,7 @@ import { useNavigation } from '@/hooks/useNavigation';
 import { useEffect, useState, useCallback } from 'react';
 import { Keyboard } from '@/modules/game/Keyboard';
 import { GameFinishedModal } from '@/modules/game/GameFinishedModal';
-import { generateBotThrow } from '@/contexts/BotGameContext/botGameReducer';
+import { generateBotThrow } from '@/modules/game/generateBotThrows';
 
 export default function BotGamePlay() {
   const { navigateToConfigureGame } = useNavigation();
@@ -199,11 +199,10 @@ export default function BotGamePlay() {
 
             {currentPlayer && (
               <Card
-                className={`${
-                  currentPlayer.isBot
-                    ? 'bg-gradient-to-br from-blue-500/5 to-blue-500/10 border-blue-500/20'
-                    : 'bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20'
-                }`}
+                className={`${currentPlayer.isBot
+                  ? 'bg-gradient-to-br from-blue-500/5 to-blue-500/10 border-blue-500/20'
+                  : 'bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20'
+                  }`}
               >
                 <CardHeader>
                   <div className="flex items-center justify-between">

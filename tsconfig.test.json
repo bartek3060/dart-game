@@ -4,6 +4,9 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "verbatimModuleSyntax": false,
-    "types": ["node", "jest", "@testing-library/jest-dom"]
-  }
+    "moduleResolution": "node",
+    "types": ["node", "@types/jest", "@testing-library/jest-dom"]
+  },
+  "include": ["src/**/*.test.ts", "src/**/*.test.tsx", "src/**/__tests__/**/*", "src/setupTests.ts"],
+  "exclude": []
 }

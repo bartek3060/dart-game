@@ -1,5 +1,6 @@
+import { BaseGameState as GameState } from '@/contexts/shared/gameTypes';
 import { gameReducer } from '../gameReducer';
-import type { GameState, GameAction, Player } from '../gameTypes';
+import type { GameAction, Player } from '../gameTypes';
 
 const createMockPlayer = (
   id: string,
@@ -27,8 +28,8 @@ describe('gameReducer', () => {
     const action = { type: 'UNKNOWN' } as unknown as GameAction;
     const result = gameReducer(initialState, action);
 
-    expect(result.players).toHaveLength(2);
-    expect(result.players[0].isCurrentPlayer).toBe(true);
+    expect(result).toEqual(initialState)
+
   });
 
   describe('ADD_PLAYER_INPUT', () => {
