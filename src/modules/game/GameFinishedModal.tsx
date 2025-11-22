@@ -3,6 +3,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
   DialogFooter,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
@@ -34,6 +35,9 @@ export function GameFinishedModal({
           <DialogTitle className="text-center text-2xl">
             🎉 Game Finished! 🎉
           </DialogTitle>
+          <DialogDescription className="sr-only">
+            Game results showing the winner and final scores for all players
+          </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4">
@@ -53,17 +57,15 @@ export function GameFinishedModal({
               {players.map((player) => (
                 <div
                   key={player.id}
-                  className={`p-3 rounded-lg flex justify-between items-center ${
-                    player.id === winner?.id
-                      ? 'bg-primary/10 border border-primary'
-                      : 'bg-muted'
-                  }`}
+                  className={`p-3 rounded-lg flex justify-between items-center ${player.id === winner?.id
+                    ? 'bg-primary/10 border border-primary'
+                    : 'bg-muted'
+                    }`}
                 >
                   <span className="font-medium">{player.name}</span>
                   <span
-                    className={`text-lg font-semibold ${
-                      player.id === winner?.id ? 'text-primary' : ''
-                    }`}
+                    className={`text-lg font-semibold ${player.id === winner?.id ? 'text-primary' : ''
+                      }`}
                   >
                     {player.score}
                   </span>
