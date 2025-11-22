@@ -1,8 +1,6 @@
 import { usePlayerGameContext } from '@/contexts/PlayerGameContext/usePlayerGameContext';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigation } from '@/hooks/useNavigation';
-
-// Simple wrapper components for player game
 import {
   Card,
   CardHeader,
@@ -10,38 +8,36 @@ import {
   CardDescription,
   CardContent,
 } from '@/components/ui/card';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Undo2 } from 'lucide-react';
-import { Keyboard } from '@/modules/game/Keyboard';
 import { GameFinishedModal } from '@/modules/game/GameFinishedModal';
+import { useGameInput } from '@/modules/game/hooks/useGameInput';
+import { useGameState } from '@/modules/game/hooks/useGameState';
+import { ScoreInput } from '@/modules/game/components/ScoreInput';
+import { PlayerScoreTabs } from '@/modules/game/components/PlayerScoreTabs';
+import { CurrentScore } from '@/modules/game/components/CurrentScore';
+import { TurnHeader } from '@/modules/game/components/TurnHeader';
 
 export default function PlayerGamePlay() {
   const { players, addPlayerTurn, deleteLastPlayerTurn, resetAndStartGame } =
     usePlayerGameContext();
   const { navigateToConfigureGame } = useNavigation();
-  const [inputValue, setInputValue] = useState<string>('');
 
-  const isEnteredScoreValid = !!(
-    inputValue.length &&
-    !isNaN(Number(inputValue)) &&
-    Number(inputValue) >= 0 &&
-    Number(inputValue) <= 180
-  );
+  const {
+    inputValue,
+    setInputValue,
+    isEnteredScoreValid,
+    resetPlayerInput,
+    handleInputChange,
+    handleBackspace,
+    handleInputKeyDown,
+  } = useGameInput();
 
-  const currentPlayer = players.find(({ isCurrentPlayer }) => isCurrentPlayer);
-  const activePlayerId = currentPlayer?.id || '';
-  const currentPlayerIndex = players.findIndex(
-    ({ isCurrentPlayer }) => isCurrentPlayer
-  );
-  const previousPlayerId =
-    players[
-      currentPlayerIndex > 0 ? currentPlayerIndex - 1 : players.length - 1
-    ]?.id;
-  const winner = players.find(({ score }) => score === 0);
-  const gameFinished = !!winner;
+  const {
+    currentPlayer,
+    activePlayerId,
+    previousPlayer,
+    winner,
+    gameFinished,
+  } = useGameState(players);
 
   useEffect(() => {
     if (!currentPlayer) {
@@ -53,36 +49,8 @@ export default function PlayerGamePlay() {
     return null;
   }
 
-  const resetPlayerInput = () => {
-    setInputValue('');
-  };
-
-  const handleInputChange = ({
-    target,
-  }: React.ChangeEvent<HTMLInputElement>): void => {
-    const value = target.value;
-    setInputValue(value);
-  };
-  const handleBackspace = () => {
-    setInputValue((prevInput) => prevInput.slice(0, -1));
-  };
-
-  const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      if (isEnteredScoreValid) {
-        const num = parseInt(inputValue);
-        addPlayerTurn(activePlayerId, num);
-        resetPlayerInput();
-      }
-    } else if (e.key === 'Backspace' && inputValue === '') {
-      e.preventDefault();
-      handleBackspace();
-    }
-  };
-
   const handleSubmitTurn = () => {
-    if (inputValue.length > 0) {
+    if (isEnteredScoreValid) {
       addPlayerTurn(activePlayerId, parseInt(inputValue));
       resetPlayerInput();
     }
@@ -109,99 +77,32 @@ export default function PlayerGamePlay() {
           <>
             <div>
               <h2 className="text-sm font-semibold mb-4">Players Scores</h2>
-              <div className="sticky top-16 z-10 bg-background py-2">
-                <Tabs
-                  value={activePlayerId}
-                  className="w-full overflow-x-scroll"
-                >
-                  <TabsList>
-                    {players.map((player) => (
-                      <TabsTrigger
-                        data-testid="player-tab-score"
-                        key={player.id}
-                        value={player.id}
-                        className="relative flex flex-col items-center gap-1 flex-1 min-w-[100px]"
-                      >
-                        <div className="flex items-center gap-2">
-                          <span className="text-xs font-medium">
-                            {player.name}
-                          </span>
-                          {player.isCurrentPlayer && (
-                            <Badge variant="default" className="h-5 text-xs">
-                              Active
-                            </Badge>
-                          )}
-                        </div>
-                        <span className="text-xs text-muted-foreground font-semibold">
-                          {player.score}
-                        </span>
-                      </TabsTrigger>
-                    ))}
-                  </TabsList>
-                </Tabs>
-              </div>
-              <Card className="bg-muted/50 border-0">
-                <CardContent className="pt-6">
-                  <div className="space-y-4">
-                    <div>
-                      <p className="text-sm text-muted-foreground">
-                        Current Score
-                      </p>
-                      <p className="text-4xl font-bold">
-                        {currentPlayer.score}
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+              <PlayerScoreTabs
+                players={players}
+                activePlayerId={activePlayerId}
+              />
+              <CurrentScore score={currentPlayer.score} />
             </div>
 
             {currentPlayer && (
               <Card className="bg-linear-to-br from-primary/5 to-primary/10 border-primary/20">
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <CardTitle className="text-lg">
-                        {currentPlayer.name}'s Turn
-                      </CardTitle>
-                      <CardDescription>Enter your turn score</CardDescription>
-                    </div>
-                    <Button
-                      data-testid="undo-icon"
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => deleteLastPlayerTurn(previousPlayerId)}
-                      title="Delete last turn"
-                    >
-                      <Undo2 className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </CardHeader>
+                <TurnHeader
+                  currentPlayer={currentPlayer}
+                  onDeleteTurn={() => deleteLastPlayerTurn(previousPlayer?.id || '')}
+                  canDeleteTurn={true}
+                />
                 <CardContent className="space-y-6">
-                  <div className="space-y-3">
-                    <p className="text-xs text-muted-foreground">
-                      Enter throws value (0-180) or use the keyboard below
-                    </p>
-                    <div className="flex gap-2">
-                      <Input
-                        type="number"
-                        min="1"
-                        max="180"
-                        value={inputValue}
-                        onChange={handleInputChange}
-                        onKeyDown={handleInputKeyDown}
-                        placeholder="Enter value 0-180"
-                        className="flex-1"
-                      />
-                    </div>
-                    <Keyboard
-                      onKeyPress={(digit) => setInputValue(inputValue + digit)}
-                      onBackspace={handleBackspace}
-                      onEnter={handleSubmitTurn}
-                      className="mt-4"
-                      isScoreValid={isEnteredScoreValid}
-                    />
-                  </div>
+                  <ScoreInput
+                    inputValue={inputValue}
+                    onInputChange={handleInputChange}
+                    onInputKeyDown={(e) =>
+                      handleInputKeyDown(e, handleSubmitTurn)
+                    }
+                    onKeyPress={(digit) => setInputValue(inputValue + digit)}
+                    onBackspace={handleBackspace}
+                    onEnter={handleSubmitTurn}
+                    isScoreValid={isEnteredScoreValid}
+                  />
                 </CardContent>
               </Card>
             )}
