@@ -27,8 +27,8 @@ describe('gameReducer', () => {
     const action = { type: 'UNKNOWN' } as unknown as GameAction;
     const result = gameReducer(initialState, action);
 
-    expect(result.players).toHaveLength(2);
-    expect(result.players[0].isCurrentPlayer).toBe(true);
+    expect(result).toEqual(initialState)
+
   });
 
   describe('ADD_PLAYER_INPUT', () => {

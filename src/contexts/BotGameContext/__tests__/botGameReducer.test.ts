@@ -34,9 +34,7 @@ describe('botGameReducer', () => {
     const action = { type: 'UNKNOWN' } as unknown as BotGameAction;
     const result = gameReducer(initialState, action);
 
-    expect(result.players).toHaveLength(2);
-    expect(result.players[0].isCurrentPlayer).toBe(true);
-    expect(result.botDifficulty).toBe('medium');
+    expect(result).toEqual(initialState);
   });
 
   describe('SET_PLAYER_NAME', () => {
