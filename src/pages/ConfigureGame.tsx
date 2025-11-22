@@ -5,9 +5,10 @@ import {
   CardDescription,
   CardContent,
 } from '@/components/ui/card';
-import { useState } from 'react';
 import ConfigureRealPlayersGame from '../modules/configure-game/ConfigureRealPlayersGame';
+import ConfigureBotGame from '../modules/configure-game/ConfigureBotGame';
 import GameModeSelector from '../modules/configure-game/GameModeSelector';
+import { useState } from 'react';
 import { GameMode } from '@/modules/configure-game/GameModes.enum';
 
 export default function ConfigureGame() {
@@ -35,8 +36,7 @@ export default function ConfigureGame() {
         {gameMode === GameMode.REAL_PLAYERS ? (
           <ConfigureRealPlayersGame />
         ) : (
-          <div>TODO</div>
-          // <ConfigureBotGame />
+          <ConfigureBotGame />
         )}
       </div>
     </div>

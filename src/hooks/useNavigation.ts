@@ -19,10 +19,15 @@ export function useNavigation() {
     navigate('/gameplay');
   };
 
+  const navigateToBotGameplay = () => {
+    navigate('/bot-gameplay');
+  };
+
   return {
     navigateToConfigureGame,
     navigateToSignIn,
     navigateToRegister,
     navigateToGameplay,
+    navigateToBotGameplay,
   };
 }
