@@ -1,3 +1,8 @@
+import { usePlayerGameContext } from '@/contexts/PlayerGameContext/usePlayerGameContext';
+import { useEffect, useState } from 'react';
+import { useNavigation } from '@/hooks/useNavigation';
+
+// Simple wrapper components for player game
 import {
   Card,
   CardHeader,
@@ -10,16 +15,13 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Undo2 } from 'lucide-react';
-import { usePlayerGameContext } from '@/contexts/PlayerGameContext/usePlayerGameContext';
-import { useNavigation } from '@/hooks/useNavigation';
-import { useEffect, useState } from 'react';
 import { Keyboard } from '@/modules/game/Keyboard';
 import { GameFinishedModal } from '@/modules/game/GameFinishedModal';
 
-export default function GamePlay() {
-  const { navigateToConfigureGame } = useNavigation();
+export default function PlayerGamePlay() {
   const { players, addPlayerTurn, deleteLastPlayerTurn, resetAndStartGame } =
     usePlayerGameContext();
+  const { navigateToConfigureGame } = useNavigation();
   const [inputValue, setInputValue] = useState<string>('');
 
   const isEnteredScoreValid = !!(
@@ -108,14 +110,17 @@ export default function GamePlay() {
             <div>
               <h2 className="text-sm font-semibold mb-4">Players Scores</h2>
               <div className="sticky top-16 z-10 bg-background py-2">
-                <Tabs value={activePlayerId}>
-                  <TabsList className=" flex">
+                <Tabs
+                  value={activePlayerId}
+                  className="w-full overflow-x-scroll"
+                >
+                  <TabsList>
                     {players.map((player) => (
                       <TabsTrigger
                         data-testid="player-tab-score"
                         key={player.id}
                         value={player.id}
-                        className="relative flex flex-col items-center gap-1 flex-1"
+                        className="relative flex flex-col items-center gap-1 flex-1 min-w-[100px]"
                       >
                         <div className="flex items-center gap-2">
                           <span className="text-xs font-medium">

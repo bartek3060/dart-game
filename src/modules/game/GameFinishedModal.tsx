@@ -16,6 +16,7 @@ interface GameFinishedModalProps {
   onStartAgain: () => void;
   onConfigureNewGame: () => void;
   onDeleteLastTurn: (playerId: string) => void;
+  lastPlayerId?: string;
 }
 
 export function GameFinishedModal({

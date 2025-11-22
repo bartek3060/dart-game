@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import '@testing-library/jest-dom';
 import GamePlay from '../GamePlay';
 
 // Mock hooks
@@ -13,10 +14,24 @@ jest.mock('@/hooks/useNavigation', () => ({
 const mockAddPlayerTurn = jest.fn();
 const mockDeleteLastPlayerTurn = jest.fn();
 const mockResetAndStartGame = jest.fn();
+
 const mockPlayers = [
-  { id: '1', name: 'Player 1', score: 501, isCurrentPlayer: true },
-  { id: '2', name: 'Player 2', score: 450, isCurrentPlayer: false },
+  {
+    id: '1',
+    name: 'Player 1',
+    score: 501,
+    isCurrentPlayer: true,
+    isBot: false,
+  },
+  {
+    id: '2',
+    name: 'Player 2',
+    score: 450,
+    isCurrentPlayer: false,
+    isBot: false,
+  },
 ];
+
 jest.mock('@/contexts/PlayerGameContext/usePlayerGameContext', () => ({
   usePlayerGameContext: () => ({
     players: mockPlayers,
@@ -61,7 +76,7 @@ describe('GamePlay', () => {
 
     expect(screen.getByText('Dart Game - 501')).toBeInTheDocument();
     expect(
-      screen.getByText('Points countdown from 501 to 0')
+      screen.getByText(/Points countdown from 501 to 0/)
     ).toBeInTheDocument();
     expect(screen.getByText('Players Scores')).toBeInTheDocument();
     expect(screen.getByText("Player 1's Turn")).toBeInTheDocument();
@@ -94,20 +109,24 @@ describe('GamePlay', () => {
     const keyboardButton = screen.getByText('1');
     await user.click(keyboardButton);
 
-    const input = screen.getByPlaceholderText('Enter value 0-180');
-    expect(input).toHaveValue(1);
+    const input = screen.getByPlaceholderText(
+      'Enter value 0-180'
+    ) as HTMLInputElement;
+    expect(input.value).toBe('1');
   });
 
   it('handles backspace', async () => {
     const user = userEvent.setup();
     render(<GamePlay />);
 
-    const input = screen.getByPlaceholderText('Enter value 0-180');
+    const input = screen.getByPlaceholderText(
+      'Enter value 0-180'
+    ) as HTMLInputElement;
     await user.type(input, '12');
-    expect(input).toHaveValue(12);
+    expect(input.value).toBe('12');
 
     const backspaceButton = screen.getByText('Backspace');
     await user.click(backspaceButton);
-    expect(input).toHaveValue(1);
+    expect(input.value).toBe('1');
   });
 });

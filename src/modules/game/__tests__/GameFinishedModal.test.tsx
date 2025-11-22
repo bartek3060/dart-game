@@ -16,7 +16,7 @@ const mockPlayers = [
     id: '1',
     name: 'Alice',
     score: 0,
-    turns: [],
+    turns: [60, 40], // Player with turns
     isBot: false,
     isCurrentPlayer: false,
     isWinner: true,
@@ -25,7 +25,7 @@ const mockPlayers = [
     id: '2',
     name: 'Bob',
     score: 150,
-    turns: [],
+    turns: [50],
     isBot: false,
     isCurrentPlayer: false,
     isWinner: false,
