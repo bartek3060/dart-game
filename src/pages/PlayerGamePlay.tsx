@@ -39,7 +39,7 @@ export default function PlayerGamePlay() {
   const previousPlayerId =
     players[
       currentPlayerIndex > 0 ? currentPlayerIndex - 1 : players.length - 1
-    ].id;
+    ]?.id;
   const winner = players.find(({ score }) => score === 0);
   const gameFinished = !!winner;
 
