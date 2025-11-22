@@ -1,12 +1,10 @@
 import type {
   BaseGameAction,
-  BaseGameState,
   Player,
 } from '../shared/gameTypes';
 
 export type { Player };
 
-export interface GameState extends BaseGameState {}
 
 export type GameAction =
   | BaseGameAction

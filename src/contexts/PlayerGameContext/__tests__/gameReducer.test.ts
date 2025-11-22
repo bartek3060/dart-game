@@ -1,5 +1,6 @@
+import { BaseGameState as GameState } from '@/contexts/shared/gameTypes';
 import { gameReducer } from '../gameReducer';
-import type { GameState, GameAction, Player } from '../gameTypes';
+import type { GameAction, Player } from '../gameTypes';
 
 const createMockPlayer = (
   id: string,

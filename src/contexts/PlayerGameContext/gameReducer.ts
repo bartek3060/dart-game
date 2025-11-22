@@ -1,5 +1,6 @@
-import type { GameAction, GameState } from './gameTypes';
+import type { GameAction } from './gameTypes';
 import { baseGameReducer, getNewPlayer } from '../shared/gameReducer';
+import type { BaseGameState as GameState } from '../shared/gameTypes';
 
 export const initialState: GameState = {
   players: [getNewPlayer(0), getNewPlayer(1)],
