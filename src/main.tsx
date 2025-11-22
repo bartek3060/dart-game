@@ -10,8 +10,8 @@ import Login from './pages/Login.tsx';
 import Register from './pages/Register.tsx';
 import Toolbar from './components/core/Toolbar.tsx';
 import { RouteResetListener } from './components/core/RouteResetListener.tsx';
-import BotGamePlay from './modules/game/BotGamePlay.tsx';
-import PlayerGamePlay from './pages/GamePlay.tsx';
+import BotGamePlay from './pages/BotGamePlay.tsx';
+import PlayerGamePlay from './pages/PlayerGamePlay.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
